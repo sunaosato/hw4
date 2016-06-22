@@ -2,13 +2,13 @@
 #include <fstream>
 #include <string.h>
 #include <vector>
-#include <map>
+#include <iomanip>
 #include <stdlib.h>
 
 using namespace std;
 #define SIZE 1000
 
-ifstream fin("homework4/small_data.txt");
+ifstream fin("homework4/large_data.txt");
 
 class value{
 public:
@@ -75,7 +75,7 @@ void culculate_pro_score(value* val,int vertex_num){
 
   for (int i=0;i< vertex_num;i++){
     int neighbar_num = val[i].neighbar.size();
-    int share = val[i].score/neighbar_num;
+    double share = val[i].score*1.0/neighbar_num;
     
     for(int j =0;j < neighbar_num;j++){
       val[i].neighbar[j]->pro_score += share;
@@ -86,16 +86,16 @@ void culculate_pro_score(value* val,int vertex_num){
 }
 
 void  update_score(value* val,int vertex_num){
-    // int total=0;
+  //   int total=0;
 
    for(int l=0;l< vertex_num;l++){
      val[l].score = val[l].pro_score;
-     //     total += val[l].score;
+     //      total += val[l].score;
      val[l].pro_score =0.0;
-     cout<<val[l].name<<"'s score:"<<val[l].score<<endl;
+     cout<<val[l].name<<"'s score:"<< fixed << setprecision(1)<<val[l].score<<endl;
    }
-   // cout<<"total:"<<total<<endl;
-   //  cout<<"true value:"<<vertex_num*100.0<<endl;
+   // cout<<"total:"<< fixed << setprecision(2)<<total<<endl;
+   // cout<<"true value:"<<vertex_num*100.0<<endl;
 
 
 }
@@ -129,7 +129,7 @@ int main(){
 
   insert(vertex_num,val);
 
-  for(int i=0;i < 10;i++){
+  for(int i=0;i < 1;i++){
    cout<<i+1<<"回目"<<endl;
    pagerank(val,vertex_num);
   }
